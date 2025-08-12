@@ -131,44 +131,49 @@ export default function PersonalWebsite() {
           </motion.div>
         </section>
 
-        {/* ABOUT */}
-        <motion.section id="about" {...fadeInUp} className="mb-16 bg-sky-50 rounded-xl p-8 shadow-md">
-          <h3 className="text-2xl font-semibold mb-4 text-sky-800 flex items-center gap-2">
-            <AcademicCapIcon className="w-5 h-5 text-sky-600" /> About Me
-          </h3>
-          <p className="text-gray-700 text-lg leading-relaxed">
-            4.0 GPA • Shackouls Honors College • Python & ArcGIS Pro. I’m interested in the
-            intersection of weather, climate, and society, especially how we communicate risk to
-            diverse communities.
-          </p>
+       {/* ABOUT */}
+<motion.section
+  id="about"
+  {...fadeInUp}
+  className="mb-16 bg-sky-50 rounded-xl p-8 shadow-md text-center"
+>
+  <h3 className="text-2xl font-semibold mb-4 text-sky-800 flex flex-col items-center gap-2">
+    <AcademicCapIcon className="w-5 h-5 text-sky-600" /> About Me
+  </h3>
 
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Education",
-                text:
-                  "B.S. in Geosciences (Professional Meteorology) • Minors: Math & Sociology • Mississippi State University (May 2026)",
-              },
-              {
-                title: "Skills",
-                text:
-                  "Python, ArcGIS Pro, data analysis, predictive modeling, research communication",
-              },
-              {
-                title: "Certifications",
-                text: "NWS Trained Storm Spotter (2021)",
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="p-5 bg-white rounded-lg shadow hover:shadow-lg transition"
-              >
-                <h4 className="font-semibold text-sky-700 mb-2">{item.title}</h4>
-                <p className="text-gray-600 text-sm">{item.text}</p>
-              </div>
-            ))}
-          </div>
-        </motion.section>
+ <p className="text-gray-700 text-lg leading-relaxed">
+  4.0 GPA | Shackouls Honors College | Python &amp; ArcGIS Pro
+  <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;I’m interested in the intersection of weather, climate, and society,
+  especially how we communicate risk to diverse communities.
+  </p>
+
+  <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+    {[
+      {
+        title: "Education",
+        text: "B.S. in Geosciences (Professional Meteorology) • Minors: Math & Sociology • Mississippi State University (May 2026)",
+      },
+      {
+        title: "Skills",
+        text: "Python, ArcGIS Pro, data analysis, predictive modeling, research communication",
+      },
+      {
+        title: "Certifications",
+        text: "NWS Trained Storm Spotter (2021)",
+      },
+    ].map((item, idx) => (
+      <div
+        key={idx}
+        className="p-5 bg-white rounded-lg shadow hover:shadow-lg transition"
+      >
+        <h4 className="font-semibold text-sky-700 mb-2">{item.title}</h4>
+        <p className="text-gray-600 text-sm">{item.text}</p>
+      </div>
+    ))}
+  </div>
+</motion.section>
+
 
         {/* RESEARCH */}
         <motion.section id="thesis" {...fadeInUp} className="mb-16">
@@ -289,5 +294,4 @@ export default function PersonalWebsite() {
     </div>
   );
 }
-
 
