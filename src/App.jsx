@@ -121,7 +121,7 @@ export default function PersonalWebsite() {
             <div className="relative w-44 h-44 rounded-3xl overflow-hidden shadow-xl border-4 border-transparent bg-gradient-to-tr from-sky-500 to-emerald-500 p-[2px]">
               <img
                 alt="Portrait of Matthew Lentz"
-                src="/matthew.jpg"
+                src="matthew.jpg"
                 className="w-full h-full object-cover rounded-3xl"
               />
             </div>
