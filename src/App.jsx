@@ -15,6 +15,9 @@ export default function PersonalWebsite() {
     transition: { duration: 0.55, ease: "easeOut" },
   };
 
+  // Prefix for GitHub Pages project sites (e.g., /MattTheMet/)
+  const BASE = import.meta.env.BASE_URL;
+
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-sky-50 via-white to-emerald-50 text-gray-900 font-sans overflow-hidden">
       {/* Weather hero background (subtle) */}
@@ -22,7 +25,7 @@ export default function PersonalWebsite() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-[-6rem] h-[28rem] opacity-30"
         style={{
-          backgroundImage: "url('/weather-hero.jpg')",
+          backgroundImage: `url(${BASE}weather-hero.jpg)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           maskImage:
@@ -96,7 +99,7 @@ export default function PersonalWebsite() {
 
             <div className="mt-8 flex flex-wrap gap-4">
               <a
-                href="/Lentz_Matthew_Resume_2025.pdf"
+                href={`${BASE}Lentz_Matthew_Resume_2025.pdf`}
                 download
                 className="px-5 py-3 bg-gradient-to-r from-sky-600 to-emerald-500 text-white font-semibold rounded-md shadow-lg hover:scale-105 transition"
               >
@@ -121,7 +124,7 @@ export default function PersonalWebsite() {
             <div className="relative w-44 h-44 rounded-3xl overflow-hidden shadow-xl border-4 border-transparent bg-gradient-to-tr from-sky-500 to-emerald-500 p-[2px]">
               <img
                 alt="Portrait of Matthew Lentz"
-                src="matthew.jpg"
+                src={`${BASE}matthew.jpg`}
                 className="w-full h-full object-cover rounded-3xl"
               />
             </div>
@@ -135,7 +138,7 @@ export default function PersonalWebsite() {
           </h3>
           <p className="text-gray-700 text-lg leading-relaxed">
             4.0 GPA • Shackouls Honors College • Python & ArcGIS Pro. I’m interested in the
-            intersection of weather, climate, and society—especially how we communicate risk to
+            intersection of weather, climate, and society, especially how we communicate risk to
             diverse communities.
           </p>
 
@@ -214,14 +217,14 @@ export default function PersonalWebsite() {
           </div>
         </motion.section>
 
-        {/* SURVEY (new) */}
+        {/* SURVEY */}
         <motion.section
           id="survey"
           {...fadeInUp}
           className="mb-16 bg-emerald-50 rounded-xl p-8 shadow-md"
         >
           <h3 className="text-2xl font-semibold mb-4 text-emerald-800">
-            International Student Survey
+            International Student Survey (IN-PROGRESS)
           </h3>
           <p className="text-gray-700 text-lg mb-6">
             I’m gathering anonymous responses from international students to better
@@ -239,16 +242,6 @@ export default function PersonalWebsite() {
             >
               Take the Survey
             </a>
-            {/* Optional: embed instead of link — replace src with your live form URL
-            <div className="w-full h-[620px]">
-              <iframe
-                title="International Student Survey (IN-PROGRESS)"
-                src="https://your-embeddable-survey-link"
-                className="w-full h-full rounded-lg border"
-                loading="lazy"
-              />
-            </div>
-            */}
           </div>
 
           <p className="text-sm text-gray-500 mt-4">
@@ -280,7 +273,7 @@ export default function PersonalWebsite() {
               LinkedIn
             </a>
             <a
-              href="/Lentz_Matthew_Resume_2025.pdf"
+              href={`${BASE}Lentz_Matthew_Resume_2025.pdf`}
               className="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-md text-center hover:brightness-110 transition"
             >
               View Résumé
@@ -296,3 +289,5 @@ export default function PersonalWebsite() {
     </div>
   );
 }
+
+
