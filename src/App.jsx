@@ -383,7 +383,7 @@ export default function PersonalWebsite() {
           className="mb-16 bg-emerald-50 rounded-xl p-8 shadow-md"
         >
           <h3 className="text-2xl font-semibold mb-4 text-emerald-800">
-            International Student Survey (IN-PROGRESS)
+            International Student Survey (NOT COMPLETE)
           </h3>
           <p className="text-gray-700 text-lg mb-6">
             I’m gathering anonymous responses from international students to
