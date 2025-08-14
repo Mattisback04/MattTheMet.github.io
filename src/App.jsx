@@ -19,12 +19,11 @@ export default function PersonalWebsite() {
   // Prefix for GitHub Pages project sites (e.g., /MattTheMet/)
   const BASE = import.meta.env.BASE_URL;
 
-  // ---------- Modal state ----------
-  type ProjectId = "usda" | "uca" | "nws" | null;
-  const [openId, setOpenId] = useState<ProjectId>(null);
+  // 'usda' | 'uca' | 'nws' | null
+  const [openId, setOpenId] = useState(null);
 
   useEffect(() => {
-    function onKey(e: KeyboardEvent) {
+    function onKey(e) {
       if (e.key === "Escape") setOpenId(null);
     }
     window.addEventListener("keydown", onKey);
@@ -33,7 +32,7 @@ export default function PersonalWebsite() {
 
   const projects = [
     {
-      id: "usda" as const,
+      id: "usda",
       title: "USDA Agricultural Research Service — Climate & Ag",
       subtitle: "Undergraduate Researcher • Fall 2024 – Spring 2025 • Starkville, MS",
       short:
@@ -45,7 +44,7 @@ export default function PersonalWebsite() {
       ],
     },
     {
-      id: "uca" as const,
+      id: "uca",
       title: "University of Central Arkansas — Wildfire Climatology",
       subtitle: "Undergraduate Research Assistant • Summer 2025 • Remote",
       short:
@@ -57,7 +56,7 @@ export default function PersonalWebsite() {
       ],
     },
     {
-      id: "nws" as const,
+      id: "nws",
       title: "National Weather Service — Little Rock, AR",
       subtitle: "Intern • Summer 2024",
       short:
@@ -70,72 +69,71 @@ export default function PersonalWebsite() {
     },
   ];
 
-  function ProjectModal({ id }: { id: ProjectId }) {
+  function ProjectModal({ id }) {
     const proj = projects.find((p) => p.id === id);
     if (!proj) return null;
+
     return (
-      <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        aria-modal="true"
+        role="dialog"
+      >
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-black/40"
+          onClick={() => setOpenId(null)}
+        />
+        {/* Modal */}
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          aria-modal="true"
-          role="dialog"
+          initial={{ y: 24, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 24, opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          className="relative w-full max-w-2xl rounded-xl bg-white shadow-xl ring-1 ring-black/5"
         >
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/40"
-            onClick={() => setOpenId(null)}
-          />
-          {/* Modal */}
-          <motion.div
-            initial={{ y: 24, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 24, opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="relative w-full max-w-2xl rounded-xl bg-white shadow-xl ring-1 ring-black/5"
-          >
-            <div className="p-6 sm:p-8">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h4 className="text-xl font-semibold text-sky-800">
-                    {proj.title}
-                  </h4>
-                  <p className="text-sm text-gray-600 mt-1">{proj.subtitle}</p>
-                </div>
-                <button
-                  onClick={() => setOpenId(null)}
-                  className="p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-sky-500"
-                  aria-label="Close details"
-                >
-                  <XMarkIcon className="h-6 w-6 text-gray-700" />
-                </button>
+          <div className="p-6 sm:p-8">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h4 className="text-xl font-semibold text-sky-800">
+                  {proj.title}
+                </h4>
+                <p className="text-sm text-gray-600 mt-1">{proj.subtitle}</p>
               </div>
-
-              <div className="mt-5">
-                <ul className="space-y-2 text-gray-700">
-                  {proj.details.map((d, i) => (
-                    <li key={i} className="flex gap-2">
-                      <span className="mt-[7px] h-1.5 w-1.5 rounded-full bg-sky-500 shrink-0" />
-                      <span>{d}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-6 flex justify-end">
-                <button
-                  onClick={() => setOpenId(null)}
-                  className="px-4 py-2 rounded-md border border-sky-600 text-sky-700 font-medium hover:bg-sky-600 hover:text-white transition"
-                >
-                  Close
-                </button>
-              </div>
+              <button
+                onClick={() => setOpenId(null)}
+                className="p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                aria-label="Close details"
+              >
+                <XMarkIcon className="h-6 w-6 text-gray-700" />
+              </button>
             </div>
-          </motion.div>
+
+            <div className="mt-5">
+              <ul className="space-y-2 text-gray-700">
+                {proj.details.map((d, i) => (
+                  <li key={i} className="flex gap-2">
+                    <span className="mt-[7px] h-1.5 w-1.5 rounded-full bg-sky-500 shrink-0" />
+                    <span>{d}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={() => setOpenId(null)}
+                className="px-4 py-2 rounded-md border border-sky-600 text-sky-700 font-medium hover:bg-sky-600 hover:text-white transition"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </motion.div>
-      </AnimatePresence>
+      </motion.div>
     );
   }
 
@@ -344,8 +342,10 @@ export default function PersonalWebsite() {
             ))}
           </div>
 
-          {/* Modal (conditionally rendered) */}
-          <ProjectModal id={openId} />
+          {/* Modal (with exit animation) */}
+          <AnimatePresence>
+            {openId && <ProjectModal id={openId} />}
+          </AnimatePresence>
         </motion.section>
 
         {/* SURVEY */}
@@ -420,3 +420,4 @@ export default function PersonalWebsite() {
     </div>
   );
 }
+
