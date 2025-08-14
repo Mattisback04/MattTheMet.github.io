@@ -32,7 +32,7 @@ export default function PersonalWebsite() {
   const projects = [
     {
       id: "usda",
-      title: "USDA Agricultural Research Service — Climate & Ag",
+      title: "USDA Agricultural Research Service: Climate & Ag",
       subtitle:
         "Undergraduate Researcher • Fall 2024 – Spring 2025 • Starkville, MS",
       short:
@@ -45,7 +45,7 @@ export default function PersonalWebsite() {
     },
     {
       id: "uca",
-      title: "University of Central Arkansas — Wildfire Climatology",
+      title: "University of Central Arkansas: Wildfire Climatology",
       subtitle: "Undergraduate Research Assistant • Summer 2025 • Remote",
       short:
         "Spatial analysis of wildfire causes & patterns in the Ozark and Ouachita Mountains using ArcGIS Pro & Python.",
@@ -57,7 +57,7 @@ export default function PersonalWebsite() {
     },
     {
       id: "nws",
-      title: "National Weather Service — Little Rock, AR",
+      title: "National Weather Service at Little Rock, AR",
       subtitle: "Intern • Summer 2024",
       short:
         "Hands-on forecast operations, balloon launches, storm surveys, and public communication.",
@@ -321,12 +321,12 @@ export default function PersonalWebsite() {
               international students at Mississippi State University perceive
               severe weather and its risks. I’m focusing on how prior weather
               experience, language and cultural context, and warning
-              comprehension shape decision-making—plus which channels (sirens,
-              Wireless Emergency Alerts, social media, peers) students trust
-              during fast-moving events. The goal is to surface actionable
+              comprehension shape decision-making, plus which channels (sirens,
+              Wireless Emergency Alerts, social media, peers, etc.) students trust
+              during severe weather events. The goal is to surface actionable
               recommendations for MSU alerts, outreach, and culturally
-              responsive risk communication that reduce confusion and improve
-              protective action.
+              responsive risk communication that reduces confusion and improves
+              action.
             </p>
             <p>
               <strong>New role:</strong> I was recently hired to work with Dr.
