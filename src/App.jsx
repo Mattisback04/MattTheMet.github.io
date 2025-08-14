@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   EnvelopeIcon,
   AcademicCapIcon,
-  BriefcaseIcon,
   DocumentTextIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -34,7 +33,8 @@ export default function PersonalWebsite() {
     {
       id: "usda",
       title: "USDA Agricultural Research Service — Climate & Ag",
-      subtitle: "Undergraduate Researcher • Fall 2024 – Spring 2025 • Starkville, MS",
+      subtitle:
+        "Undergraduate Researcher • Fall 2024 – Spring 2025 • Starkville, MS",
       short:
         "Modeled extreme rainfall & temperature trends (RCP 4.5 & 8.5) to assess climate impacts on agriculture.",
       details: [
@@ -179,19 +179,29 @@ export default function PersonalWebsite() {
           </div>
 
           <nav className="hidden md:flex gap-8 text-sm font-medium text-gray-700">
-            <a href="#about" className="flex items-center gap-1 hover:text-sky-700 transition">
+            <a
+              href="#about"
+              className="flex items-center gap-1 hover:text-sky-700 transition"
+            >
               <AcademicCapIcon className="w-4 h-4" /> About
             </a>
-            <a href="#work" className="flex items-center gap-1 hover:text-sky-700 transition">
-              <BriefcaseIcon className="w-4 h-4" /> Work
-            </a>
-            <a href="#thesis" className="flex items-center gap-1 hover:text-sky-700 transition">
+            {/* removed "Work" link/icon */}
+            <a
+              href="#thesis"
+              className="flex items-center gap-1 hover:text-sky-700 transition"
+            >
               <DocumentTextIcon className="w-4 h-4" /> Research
             </a>
-            <a href="#survey" className="flex items-center gap-1 hover:text-sky-700 transition">
+            <a
+              href="#survey"
+              className="flex items-center gap-1 hover:text-sky-700 transition"
+            >
               <DocumentTextIcon className="w-4 h-4" /> Survey
             </a>
-            <a href="#contact" className="flex items-center gap-1 hover:text-sky-700 transition">
+            <a
+              href="#contact"
+              className="flex items-center gap-1 hover:text-sky-700 transition"
+            >
               <EnvelopeIcon className="w-4 h-4" /> Contact
             </a>
           </nav>
@@ -211,9 +221,9 @@ export default function PersonalWebsite() {
             </h2>
             <p className="mt-5 text-gray-700 text-lg leading-relaxed">
               I’m a senior meteorology student at Mississippi State University,
-              focusing on wildfire climatology, climate modeling, and weather communication.
-              I love using research to help communities prepare for severe weather and
-              long-term climate risks.
+              focusing on wildfire climatology, climate modeling, and weather
+              communication. I love using research to help communities prepare
+              for severe weather and long-term climate risks.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -288,7 +298,9 @@ export default function PersonalWebsite() {
                 key={idx}
                 className="p-5 bg-white rounded-lg shadow hover:shadow-lg transition"
               >
-                <h4 className="font-semibold text-sky-700 mb-2">{item.title}</h4>
+                <h4 className="font-semibold text-sky-700 mb-2">
+                  {item.title}
+                </h4>
                 <p className="text-gray-600 text-sm">{item.text}</p>
               </div>
             ))}
@@ -298,13 +310,31 @@ export default function PersonalWebsite() {
         {/* RESEARCH & EXPERIENCE */}
         <motion.section id="thesis" {...fadeInUp} className="mb-16">
           <h3 className="text-2xl font-semibold mb-6 text-sky-800 flex items-center gap-2">
-            <DocumentTextIcon className="w-5 h-5 text-sky-600" /> Research & Experience
+            <DocumentTextIcon className="w-5 h-5 text-sky-600" /> Research &
+            Experience
           </h3>
-          <p className="text-gray-700 text-lg mb-8">
-            Current honors thesis: how international students perceive severe weather and risk.
-            Past work includes modeling extreme rainfall/temperature for agriculture and analyzing
-            wildfire patterns in the Ozark &amp; Ouachita Mountains.
-          </p>
+
+          {/* UPDATED COPY */}
+          <div className="text-gray-700 text-lg mb-8 space-y-3">
+            <p>
+              <strong>Honors thesis:</strong> I’m investigating how
+              international students at Mississippi State University perceive
+              severe weather and its risks. I’m focusing on how prior weather
+              experience, language and cultural context, and warning
+              comprehension shape decision-making—plus which channels (sirens,
+              Wireless Emergency Alerts, social media, peers) students trust
+              during fast-moving events. The goal is to surface actionable
+              recommendations for MSU alerts, outreach, and culturally
+              responsive risk communication that reduce confusion and improve
+              protective action.
+            </p>
+            <p>
+              <strong>New role:</strong> I was recently hired to work with Dr.
+              Cardozo Gaibisso on the <em>SEMBRAR Mississippi &amp; Florida</em>{" "}
+              project. I’ll add specifics here as the role takes shape, but I’m
+              excited to contribute as details are finalized.
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {projects.map((proj) => (
@@ -343,9 +373,7 @@ export default function PersonalWebsite() {
           </div>
 
           {/* Modal (with exit animation) */}
-          <AnimatePresence>
-            {openId && <ProjectModal id={openId} />}
-          </AnimatePresence>
+          <AnimatePresence>{openId && <ProjectModal id={openId} />}</AnimatePresence>
         </motion.section>
 
         {/* SURVEY */}
@@ -358,10 +386,10 @@ export default function PersonalWebsite() {
             International Student Survey (IN-PROGRESS)
           </h3>
           <p className="text-gray-700 text-lg mb-6">
-            I’m gathering anonymous responses from international students to better
-            understand how severe weather is perceived and what information helps most.
-            Your input is voluntary and takes about 5–7 minutes. Thank you for helping
-            move this research forward.
+            I’m gathering anonymous responses from international students to
+            better understand how severe weather is perceived and what
+            information helps most. Your input is voluntary and takes about 5–7
+            minutes. Thank you for helping move this research forward.
           </p>
 
           <div className="flex flex-wrap gap-4">
@@ -376,12 +404,17 @@ export default function PersonalWebsite() {
           </div>
 
           <p className="text-sm text-gray-500 mt-4">
-            Note: Responses are anonymous. Please avoid sharing personally identifying information in open-ended answers.
+            Note: Responses are anonymous. Please avoid sharing personally
+            identifying information in open-ended answers.
           </p>
         </motion.section>
 
         {/* CONTACT */}
-        <motion.section id="contact" {...fadeInUp} className="mb-16 bg-sky-50 rounded-xl p-8 shadow-md">
+        <motion.section
+          id="contact"
+          {...fadeInUp}
+          className="mb-16 bg-sky-50 rounded-xl p-8 shadow-md"
+        >
           <h3 className="text-2xl font-semibold mb-6 text-sky-800 flex items-center gap-2">
             <EnvelopeIcon className="w-5 h-5 text-sky-600" /> Contact
           </h3>
@@ -420,4 +453,3 @@ export default function PersonalWebsite() {
     </div>
   );
 }
-
