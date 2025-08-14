@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   EnvelopeIcon,
   AcademicCapIcon,
   BriefcaseIcon,
   DocumentTextIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function PersonalWebsite() {
   const fadeInUp = {
@@ -17,6 +18,126 @@ export default function PersonalWebsite() {
 
   // Prefix for GitHub Pages project sites (e.g., /MattTheMet/)
   const BASE = import.meta.env.BASE_URL;
+
+  // ---------- Modal state ----------
+  type ProjectId = "usda" | "uca" | "nws" | null;
+  const [openId, setOpenId] = useState<ProjectId>(null);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpenId(null);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const projects = [
+    {
+      id: "usda" as const,
+      title: "USDA Agricultural Research Service — Climate & Ag",
+      subtitle: "Undergraduate Researcher • Fall 2024 – Spring 2025 • Starkville, MS",
+      short:
+        "Modeled extreme rainfall & temperature trends (RCP 4.5 & 8.5) to assess climate impacts on agriculture.",
+      details: [
+        "Built Python workflows to analyze historical and projected climate (RCP 4.5/8.5) and quantify extreme rain/temperature changes relevant to crop management.",
+        "Derived metrics (e.g., annual maxima, heatwave days) and visualized shifts to support sustainable agricultural practices.",
+        "Collaborated with Dr. Feng; communicated findings for non-technical stakeholders.",
+      ],
+    },
+    {
+      id: "uca" as const,
+      title: "University of Central Arkansas — Wildfire Climatology",
+      subtitle: "Undergraduate Research Assistant • Summer 2025 • Remote",
+      short:
+        "Spatial analysis of wildfire causes & patterns in the Ozark and Ouachita Mountains using ArcGIS Pro & Python.",
+      details: [
+        "Compiled wildfire occurrence data and environmental covariates to explore spatiotemporal patterns.",
+        "Evaluated fire causes, climate drivers, and hot spots; produced cartographic products in ArcGIS Pro.",
+        "Worked with Dr. Flatley on interpretable visuals and summaries for broader audiences.",
+      ],
+    },
+    {
+      id: "nws" as const,
+      title: "National Weather Service — Little Rock, AR",
+      subtitle: "Intern • Summer 2024",
+      short:
+        "Hands-on forecast operations, balloon launches, storm surveys, and public communication.",
+      details: [
+        "Assisted forecasters in AWIPS; practiced real-time decision support and messaging.",
+        "Performed Grawmet radiosonde preparations and weather balloon launches.",
+        "Participated in storm surveys; answered public/partner calls; delivered NOAA Weather Radio segments.",
+      ],
+    },
+  ];
+
+  function ProjectModal({ id }: { id: ProjectId }) {
+    const proj = projects.find((p) => p.id === id);
+    if (!proj) return null;
+    return (
+      <AnimatePresence>
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          aria-modal="true"
+          role="dialog"
+        >
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/40"
+            onClick={() => setOpenId(null)}
+          />
+          {/* Modal */}
+          <motion.div
+            initial={{ y: 24, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 24, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="relative w-full max-w-2xl rounded-xl bg-white shadow-xl ring-1 ring-black/5"
+          >
+            <div className="p-6 sm:p-8">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h4 className="text-xl font-semibold text-sky-800">
+                    {proj.title}
+                  </h4>
+                  <p className="text-sm text-gray-600 mt-1">{proj.subtitle}</p>
+                </div>
+                <button
+                  onClick={() => setOpenId(null)}
+                  className="p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                  aria-label="Close details"
+                >
+                  <XMarkIcon className="h-6 w-6 text-gray-700" />
+                </button>
+              </div>
+
+              <div className="mt-5">
+                <ul className="space-y-2 text-gray-700">
+                  {proj.details.map((d, i) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="mt-[7px] h-1.5 w-1.5 rounded-full bg-sky-500 shrink-0" />
+                      <span>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-6 flex justify-end">
+                <button
+                  onClick={() => setOpenId(null)}
+                  className="px-4 py-2 rounded-md border border-sky-600 text-sky-700 font-medium hover:bg-sky-600 hover:text-white transition"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      </AnimatePresence>
+    );
+  }
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-sky-50 via-white to-emerald-50 text-gray-900 font-sans overflow-hidden">
@@ -131,95 +252,100 @@ export default function PersonalWebsite() {
           </motion.div>
         </section>
 
-       {/* ABOUT */}
-<motion.section
-  id="about"
-  {...fadeInUp}
-  className="mb-16 bg-sky-50 rounded-xl p-8 shadow-md text-center"
->
-  <h3 className="text-2xl font-semibold mb-4 text-sky-800 flex flex-col items-center gap-2">
-    <AcademicCapIcon className="w-5 h-5 text-sky-600" /> About Me
-  </h3>
+        {/* ABOUT */}
+        <motion.section
+          id="about"
+          {...fadeInUp}
+          className="mb-16 bg-sky-50 rounded-xl p-8 shadow-md text-center"
+        >
+          <h3 className="text-2xl font-semibold mb-4 text-sky-800 flex flex-col items-center gap-2">
+            <AcademicCapIcon className="w-5 h-5 text-sky-600" /> About Me
+          </h3>
 
- <p className="text-gray-700 text-lg leading-relaxed">
-  4.0 GPA | Shackouls Honors College | Python &amp; ArcGIS Pro
-  <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;I’m interested in the intersection of weather, climate, and society,
-  especially how we communicate risk to diverse communities.
-  </p>
+          <p className="text-gray-700 text-lg leading-relaxed">
+            4.0 GPA | Shackouls Honors College | Python &amp; ArcGIS Pro
+            <br />
+            I’m interested in the intersection of weather, climate, and society,
+            especially how we communicate risk to diverse communities.
+          </p>
 
-  <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
-    {[
-      {
-        title: "Education",
-        text: "B.S. in Geosciences (Professional Meteorology) • Minors: Math & Sociology • Mississippi State University (May 2026)",
-      },
-      {
-        title: "Skills",
-        text: "Python, ArcGIS Pro, data analysis, predictive modeling, research communication",
-      },
-      {
-        title: "Certifications",
-        text: "NWS Trained Storm Spotter (2021)",
-      },
-    ].map((item, idx) => (
-      <div
-        key={idx}
-        className="p-5 bg-white rounded-lg shadow hover:shadow-lg transition"
-      >
-        <h4 className="font-semibold text-sky-700 mb-2">{item.title}</h4>
-        <p className="text-gray-600 text-sm">{item.text}</p>
-      </div>
-    ))}
-  </div>
-</motion.section>
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Education",
+                text:
+                  "B.S. in Geosciences (Professional Meteorology) • Minors: Math & Sociology • Mississippi State University (May 2026)",
+              },
+              {
+                title: "Skills",
+                text:
+                  "Python, ArcGIS Pro, data analysis, predictive modeling, research communication",
+              },
+              {
+                title: "Certifications",
+                text: "NWS Trained Storm Spotter (2021)",
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="p-5 bg-white rounded-lg shadow hover:shadow-lg transition"
+              >
+                <h4 className="font-semibold text-sky-700 mb-2">{item.title}</h4>
+                <p className="text-gray-600 text-sm">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </motion.section>
 
-
-        {/* RESEARCH */}
+        {/* RESEARCH & EXPERIENCE */}
         <motion.section id="thesis" {...fadeInUp} className="mb-16">
           <h3 className="text-2xl font-semibold mb-6 text-sky-800 flex items-center gap-2">
-            <DocumentTextIcon className="w-5 h-5 text-sky-600" /> Research
+            <DocumentTextIcon className="w-5 h-5 text-sky-600" /> Research & Experience
           </h3>
           <p className="text-gray-700 text-lg mb-8">
             Current honors thesis: how international students perceive severe weather and risk.
             Past work includes modeling extreme rainfall/temperature for agriculture and analyzing
-            wildfire patterns in the Ozark & Ouachita Mountains.
+            wildfire patterns in the Ozark &amp; Ouachita Mountains.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                title: "USDA Agricultural Research",
-                desc:
-                  "Modeled extreme rainfall & temperature trends (RCP 4.5 & 8.5) to assess climate impacts on agriculture.",
-                links: ["Learn More", "View Code"],
-              },
-              {
-                title: "Wildfire Climatology",
-                desc:
-                  "Spatial analysis of wildfire causes & patterns in the Ozark and Ouachita Mountains using ArcGIS Pro & Python.",
-                links: [],
-              },
-            ].map((proj, idx) => (
-              <div key={idx} className="p-6 bg-white rounded-lg shadow hover:shadow-lg transition">
-                <h4 className="font-semibold text-sky-700 mb-2">{proj.title}</h4>
-                <p className="text-gray-600 text-sm mb-3">{proj.desc}</p>
-                {proj.links.length > 0 && (
-                  <div className="flex gap-3 text-xs">
-                    {proj.links.map((link, i) => (
-                      <a
-                        key={i}
-                        href="#"
-                        className="px-3 py-1 border border-sky-600 rounded hover:bg-sky-600 hover:text-white transition"
-                      >
-                        {link}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {projects.map((proj) => (
+              <button
+                key={proj.id}
+                onClick={() => setOpenId(proj.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") setOpenId(proj.id);
+                }}
+                className="group text-left p-6 bg-white rounded-lg shadow hover:shadow-lg transition border border-transparent hover:border-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-600"
+                aria-haspopup="dialog"
+              >
+                <h4 className="font-semibold text-sky-700 mb-2 group-hover:text-sky-800">
+                  {proj.title}
+                </h4>
+                <p className="text-xs text-gray-500 mb-2">{proj.subtitle}</p>
+                <p className="text-gray-600 text-sm">{proj.short}</p>
+
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-700">
+                  Read details
+                  <svg
+                    className="h-4 w-4"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L13.586 10 10.293 6.707a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
             ))}
           </div>
+
+          {/* Modal (conditionally rendered) */}
+          <ProjectModal id={openId} />
         </motion.section>
 
         {/* SURVEY */}
@@ -294,4 +420,3 @@ export default function PersonalWebsite() {
     </div>
   );
 }
-
